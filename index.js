@@ -45,6 +45,7 @@
 //     return visited
 // }
 
+//version two
 
 function findAdjacent(node, vertices, edges) {
   var edgesArr = [];
