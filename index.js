@@ -70,6 +70,7 @@ function markDistanceAndPredecessor(vertice, adjacentNodes) {
 // }
 
 function bfs(rootNode, vertices, edges) {
+  rootNode.distance = 0;
   let queue = Array.isArray(rootNode) ? [...rootNode] : [rootNode];
   let nodes = [];
   while (queue.length) {
