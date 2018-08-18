@@ -47,8 +47,12 @@ let findAdjacent = (root, vertices,edges)=>{
   // console.log("now return");
   return adjacent
   // return "done"
-}
+} //end findAdjacent
 
+
+
+
+//
 // edges = [
 //   ['14th&6th', '23rd&6th'],
 //   ['23rd&6th', '34th&6th'],
@@ -89,9 +93,103 @@ let findAdjacent = (root, vertices,edges)=>{
 //     }
 // }
 
+// #markDistanceAndPredecessor should return an array of adjacent nodes:
+let markDistanceAndPredecessor=(root,adjacentNodes)=>{
+  // console.log(root);
+  // console.log(adjacentNodes);
+  // console.log("done");
+  adjacentNodes.forEach(node=>{node.distance = 1; node.predecessor = root})
+  return adjacentNodes
+} //markDistanceAndPredecessor
+////////////////////////////////////// START TEST markDistanceAndPredecessor
 
+  // let twentyThirdAndSixth = vertices[1]
+  // let twentyEighthAndBroadway = vertices[4]
+  // let thirtyFourthAndSixth = vertices[0]
+  // let adjacentNodes = [twentyThirdAndSixth, twentyEighthAndBroadway]
+  //
+  // let value = markDistanceAndPredecessor(thirtyFourthAndSixth, adjacentNodes)
+  // console.log(value);
 
+  // expect(twentyThirdAndSixth.distance).toEqual(1)
+  // expect(twentyEighthAndBroadway.distance).toEqual(1)
+  // expect(twentyEighthAndBroadway.predecessor).toEqual(thirtyFourthAndSixth)
+////////////////////////////////////// END TEST markDistanceAndPredecessor
+let containsVertice = (node,vertices)=>{ //this array is is array ordered from bfs not the array vertices passed to bfs
+  //return true of array contains node already, false if not
+  console.log('containsVertice called');
+  for(let i=0;i<vertices.length;i++){
+    if(node.name == vertices[i].name){return true}
+  }
+  return false
+}
 
+// 1) #bfs should return an array of nodes in the order they were visited:
+let bfs = (startingNode, vertices,edges)=>{
+  let ordered = []
+  // console.log("start bfs " +startingNode.name);
+  //push starting node to ordered
+  // console.log(startingNode);
+  ordered.push(startingNode)
+  let adjacent = findAdjacent(startingNode.name, vertices,edges)
+  // ordered = ordered.concat(adjacent);
+  // console.log(adjacent);
+  // console.log("that was adjacent");
+  // // console.log(ordered);
+  // let bfsreturn = []
+  adjacent.forEach(node => {
+    ordered.push(node)
+  })
+  adjacent.forEach(node => {
+  //
+  //   // bfsreturn.concat(bfs(node,vertices,edges))
+  //   bfsreturn.push(bfs(node,vertices,edges))
+    let temp = (bfs(node,vertices,edges))
+    // console.log("***********************TEMP");
+    // console.log(temp);
+    // console.log("***********************END TEMP");
+    temp.forEach(subnode=>{
+      // ordered.push(subnode)
+      //NO we want to check to see if exists first.
+      let found = false //assume found
+      for(let i=0;i<ordered.length;i++){
+        if(ordered[i].name == subnode.name){found = true}
+      }
+      if(!found){ordered.push(subnode)}
+    })
+  //
+  })
+  // let flat = bfsreturn.flat()
+  // console.log('****************************');
+  // console.log(`bfsreturn = ${bfsreturn}`);
+  // console.log(flat);
+  // //*******************************
+  // if(bfsreturn){
+  //   bfsreturn.forEach(node=>{
+  //     // console.log("bfsreturn.forEach");
+  //     // console.log(node);
+  //     if(!containsVertice(node,ordered)){
+  //       // console.log("NODE IS::::::::::");
+  //       // console.log(node);
+  //       // console.log("END");
+  //       // console.log("adding node");
+  //       // console.log(node);
+  //       ordered.push(node[0])
+  //       // console.log("node added");
+  //     }
+  //   })
+  // }
+  // //*******************************
+  return ordered
+}
+
+// let startingNode = vertices[0]
+// let bfsreturn = bfs(startingNode, vertices, edges)
+// console.log("#####################################");
+// console.log(bfsreturn);
+// .map(function(vertex){ return vertex.name; })).toEqual(
+  // ['34th&6th', '23rd&6th', '28th&Bwy', '14th&6th', '23rd&Bwy', '14th&Lex',
+  //   '23rd&Lex'])
 
 
 
